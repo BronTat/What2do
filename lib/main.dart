@@ -15,7 +15,9 @@ class MyApp extends StatelessWidget {
           textTheme: GoogleFonts.nunitoSansTextTheme(
         Theme.of(context).textTheme,
       )),
-      home: Accueil(),
+      home: Accueil(
+
+      ),
     );
   }
 }
