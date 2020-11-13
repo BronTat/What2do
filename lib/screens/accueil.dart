@@ -16,7 +16,7 @@ class Accueil_State extends State<Accueil> {
           child: Column(
             children: [
               Image(image: AssetImage(
-                'asses'
+                'logo.png'
               ))
             ],
           )
