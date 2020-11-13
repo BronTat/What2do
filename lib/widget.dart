@@ -42,7 +42,7 @@ class TacheWidget extends StatelessWidget{
                 desc ?? "Pas de description",
               style: TextStyle(
               fontSize: 16,
-              fontWeight : FontWeight.w600,
+              fontWeight : FontWeight.w300,
               color: Color(0xFF171717),
                 height: 1.5,
             ),

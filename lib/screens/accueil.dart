@@ -55,7 +55,7 @@ class Accueil_State extends State<Accueil> {
                   child:Image(
                     //bouton flottant
                     image: AssetImage(
-                      'assets/images/add_icon'
+                      'assets/images/add_icon.png'
                     ),
                   ),
                 ),
