@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:todolist_app/widget.dart';
 
 class Accueil extends StatefulWidget {
   @override
@@ -12,12 +13,18 @@ class Accueil_State extends State<Accueil> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.all(24.0),
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: 24.0,
+            vertical: 32.0,
+          ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image(image: AssetImage(
-                'logo.png'
-              ))
+                'assets/images/logo.png'
+              )),
+              TacheWidget()
             ],
           )
         ),
