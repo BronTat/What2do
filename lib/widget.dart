@@ -4,7 +4,7 @@ class TacheWidget extends StatelessWidget{
   final String title;
   final String desc;
   //C'est un constructeur
-  TacheWidget({this.title});
+  TacheWidget({this.title, this.desc});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class TacheWidget extends StatelessWidget{
             //Ajoute un padding individuel (ici, sur le haut)
             padding: const EdgeInsets.only(top : 8.0),
             child: Text(
-                "Bonjour, utilisateur ! Bienvenue sur cette application. Sur cet écran, vous pourrez visualiser l'ensemble de vos listes, en ajouter ou en supprimer",
+                desc ?? "Pas de description",
               style: TextStyle(
               fontSize: 16,
               fontWeight : FontWeight.w600,
