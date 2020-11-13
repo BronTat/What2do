@@ -30,6 +30,10 @@ class Accueil_State extends State<Accueil> {
                   'assets/images/logo.png'
                 )),
               ),
+              TacheWidget(
+                //titre passé en paramètre
+                title: "Débuter avec What2Do :)",
+              ),
               TacheWidget()
             ],
           )
