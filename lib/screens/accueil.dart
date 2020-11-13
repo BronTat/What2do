@@ -18,12 +18,18 @@ class Accueil_State extends State<Accueil> {
             horizontal: 24.0,
             vertical: 32.0,
           ),
+          color: Color(0xFF171717),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image(image: AssetImage(
-                'assets/images/logo.png'
-              )),
+              Container(
+                margin: EdgeInsets.only(
+                  bottom:32
+                ),
+                child: Image(image: AssetImage(
+                  'assets/images/logo.png'
+                )),
+              ),
               TacheWidget()
             ],
           )
