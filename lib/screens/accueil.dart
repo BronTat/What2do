@@ -27,7 +27,8 @@ class Accueil_State extends State<Accueil> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(
-                      bottom:32
+                      //avant à 32 mais renderFlex overflowed
+                      bottom:27
                     ),
                     child: Image(image: AssetImage(
                       'assets/images/logo.png'
