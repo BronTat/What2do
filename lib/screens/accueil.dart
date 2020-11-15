@@ -15,8 +15,7 @@ class Accueil_State extends State<Accueil> {
         child: Container(
           width: double.infinity,
           padding: EdgeInsets.symmetric(
-            horizontal: 24.0,
-            vertical: 32.0,
+            horizontal: 24.0
           ),
           color: Color(0xFF171717),
           //Stack - superposition
@@ -26,9 +25,11 @@ class Accueil_State extends State<Accueil> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
+                    //placement du bouton (+)
                     margin: EdgeInsets.only(
+                      top: 32,
                       //avant à 32 mais renderFlex overflowed
-                      bottom:27
+                      bottom: 32,
                     ),
                     child: Image(image: AssetImage(
                       'assets/images/logo.png'
@@ -52,7 +53,7 @@ class Accueil_State extends State<Accueil> {
               ),
               //Au lieu d'un floatingbutton
               Positioned(
-                bottom: 0,
+                bottom: 24,
                 right: 0,
                 child: Container(
                   width: 60,
