@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todolist_app/widget.dart';
 
 class Tache extends StatefulWidget {
   @override
@@ -13,43 +14,57 @@ class _TacheState extends State<Tache> {
       body: SafeArea(
         child: Container(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InkWell(//zone rectangulaire qui répond au toucher
-                onTap: (){
-                 Navigator.pop(context);
+          Padding(
+          padding: EdgeInsets.only(
+            top:24.0,
+            bottom: 6.0,
+          ),
+          child: Row(
+            children: [
+              InkWell( //zone rectangulaire qui répond au toucher
+                onTap: () {
+                  Navigator.pop(context);
                 },
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 24.0
+                  padding: const EdgeInsets.all(24.0),
+                  child: Image(
+                    image: AssetImage('assets/images/back_arrow_icon.png'),
                   ),
-                  child: Row(
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.all(24.0),
-                          child: Image(
-                            image: AssetImage('assets/images/back_arrow_icon.png'),
-                          )),
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                              hintText: "Entrez le nom de la tâche",
-                              border: InputBorder.none
-                          ),
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            color:Color(0xFFFFFFFF)
-                          ),
-                        ),
-                      )
-                    ],
+                ),
+              ),
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                      hintText: "Entrez le nom de la tâche",
+                      border: InputBorder.none
+                  ),
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFFFFFFF)
                   ),
                 ),
               )
             ],
           ),
         ),
-      ),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "description de la tache",
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 24.0,
+                  )
+                ),
+              ),
+              ToDoWidget(),
+      ],
+    ),)
+    ,
+    )
+    ,
     );
   }
 }
