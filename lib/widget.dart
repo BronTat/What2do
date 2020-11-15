@@ -57,7 +57,6 @@ class ToDoWidget extends StatelessWidget {
   final bool estFait;
 
   ToDoWidget({this.texte, @required this.estFait});
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -67,34 +66,48 @@ class ToDoWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(
-            width: 20.0,
-            height: 20.0,
-            margin: EdgeInsets.only(
-              right: 16.0,
-            ),
-            decoration: BoxDecoration(
-              color: estFait ? Color(0xFF148BCC) : Colors.transparent,
-              borderRadius: BorderRadius.circular(6.0),
-              border: estFait ? null : Border.all(
-                  color:Color(0xFF86829D),
-                width: 1.5
-              )
-            ),
-            child: Image(
-              image: AssetImage('assests/images/check_icon.png'),
+          Positioned(
+            child: Column(
+              children: [
+                Container(
+                  width: 20.0,
+                  height: 20.0,
+                  margin: EdgeInsets.only(
+                    right: 16.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: estFait ? Color(0xFF148BCC) : Colors.transparent,
+                    borderRadius: BorderRadius.circular(6.0),
+                    border: estFait ? null : Border.all(
+                        color:Color(0xFF86829D),
+                      width: 1.5
+                    )
+                  ),
+                  child: Image(
+                    image: AssetImage('assests/images/check_icon.png'),
+                  ),
+                ),
+              ],
             ),
           ),
           Text(
             texte ?? "ToDo vide",
             style: TextStyle(
-              color: Color(0xFF148BCC),
+              color: estFait ? Color(0xFF148BCC) : Color(0xFF86829D),
               fontSize: 16.0,
-              fontWeight: FontWeight.bold,
+              fontWeight:  estFait ? FontWeight.bold : FontWeight.w500,
             ),
           ),
         ],
       ),
     );
+  }
+}
+
+class NoGlowBehaviour extends ScrollBehavior{
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection){
+    return child;
   }
 }

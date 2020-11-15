@@ -33,18 +33,22 @@ class Accueil_State extends State<Accueil> {
                     ),
                     Expanded(
                       //signifie qu'on peut naviger dans nos listes
-                      child: ListView(
-                        // ListView pour avoir plusieurs list de toDoList
-                        children: [
-                          TacheWidget(
-                              //titre passé en paramètre
-                              title: "Débuter avec What2Do :)",
-                              desc:
-                                  "Bonjour, utilisateur ! Bienvenue sur cette application. Sur cet écran, vous pourrez visualiser l'ensemble de vos listes, en ajouter ou en supprimer"),
-                          TacheWidget(),
-                          TacheWidget(),
-                          TacheWidget(),
-                        ],
+                      child: ScrollConfiguration(
+                        //enleve le glow lorsqu'on remonte et descend l'app
+                        behavior: NoGlowBehaviour(),
+                        child: ListView(
+                          // ListView pour avoir plusieurs list de toDoList
+                          children: [
+                            TacheWidget(
+                                //titre passé en paramètre
+                                title: "Débuter avec What2Do :)",
+                                desc:
+                                    "Bonjour, utilisateur ! Bienvenue sur cette application. Sur cet écran, vous pourrez visualiser l'ensemble de vos listes, en ajouter ou en supprimer"),
+                            TacheWidget(),
+                            TacheWidget(),
+                            TacheWidget(),
+                          ],
+                        ),
                       ),
                     )
                   ],
@@ -65,7 +69,12 @@ class Accueil_State extends State<Accueil> {
                       width: 60,
                       height: 60,
                       decoration: BoxDecoration(
-                          color: Color(0xFF148BCC),
+                          gradient: LinearGradient(
+                            //Dégradé
+                              colors: [Color(0xFF148BCC), Color(0xFF86829D)],
+                              begin: Alignment(0.0, -1.0),
+                              end: Alignment(0.0, 1.0)),
+                          //color: Color(0xFF148BCC),
                           borderRadius: BorderRadius.circular(20)),
                       child: Image(
                         //bouton flottant
