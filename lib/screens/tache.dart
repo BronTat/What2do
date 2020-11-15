@@ -50,16 +50,36 @@ class _TacheState extends State<Tache> {
             ],
           ),
         ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "description de la tache",
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 24.0,
-                  )
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom:  12.0,
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "description de la tache",
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 24.0,
+                    )
+                  ),
                 ),
               ),
-              ToDoWidget(),
+              ToDoWidget(
+                texte: "Créer ma première tache",
+                estFait: false,
+              ),
+              ToDoWidget(
+                texte: "Créer ma deuxieme tache",
+                estFait: false,
+              ),
+              ToDoWidget(
+                texte: "Créer ma troisime tache",
+                estFait: true,
+              ),
+              ToDoWidget(
+                texte: "Créer ma quatrieme tache",
+                estFait: true,
+              ),
       ],
     ),)
     ,
