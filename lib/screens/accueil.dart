@@ -58,7 +58,6 @@ class Accueil_State extends State<Accueil> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        //Ouvre note widget Tache
                         MaterialPageRoute(builder: (context) => Tache()),
                       );
                     },
