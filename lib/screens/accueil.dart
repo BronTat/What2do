@@ -34,12 +34,20 @@ class Accueil_State extends State<Accueil> {
                       'assets/images/logo.png'
                     )),
                   ),
-                  TacheWidget(
-                    //titre passé en paramètre
-                    title: "Débuter avec What2Do :)",
-                    desc : "Bonjour, utilisateur ! Bienvenue sur cette application. Sur cet écran, vous pourrez visualiser l'ensemble de vos listes, en ajouter ou en supprimer"
+                Expanded( //signifie qu'on peut naviger dans nos listes
+                  child: ListView( // ListView pour avoir plusieurs list de toDoList
+                    children: [
+                      TacheWidget(
+                        //titre passé en paramètre
+                          title: "Débuter avec What2Do :)",
+                          desc : "Bonjour, utilisateur ! Bienvenue sur cette application. Sur cet écran, vous pourrez visualiser l'ensemble de vos listes, en ajouter ou en supprimer"
+                      ),
+                      TacheWidget(),
+                      TacheWidget(),
+                      TacheWidget(),
+                    ],
                   ),
-                  TacheWidget()
+                )
                 ],
               ),
               //Au lieu d'un floatingbutton
