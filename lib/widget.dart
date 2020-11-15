@@ -84,7 +84,7 @@ class ToDoWidget extends StatelessWidget {
                     )
                   ),
                   child: Image(
-                    image: AssetImage('assests/images/check_icon.png'),
+                    image: AssetImage('assets/images/check_icon.png'),
                   ),
                 ),
               ],
@@ -104,6 +104,8 @@ class ToDoWidget extends StatelessWidget {
   }
 }
 
+
+//Enlever le glow
 class NoGlowBehaviour extends ScrollBehavior{
   @override
   Widget buildViewportChrome(
