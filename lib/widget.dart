@@ -57,6 +57,7 @@ class ToDoWidget extends StatelessWidget {
   final bool estFait;
 
   ToDoWidget({this.texte, @required this.estFait});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -76,15 +77,13 @@ class ToDoWidget extends StatelessWidget {
                     right: 16.0,
                   ),
                   decoration: BoxDecoration(
-                    color: estFait ? Color(0xFF148BCC) : Colors.transparent,
-                    borderRadius: BorderRadius.circular(6.0),
-                    border: estFait ? null : Border.all(
-                        color:Color(0xFF86829D),
-                      width: 1.5
-                    )
-                  ),
+                      color: estFait ? Color(0xFF148BCC) : Colors.transparent,
+                      borderRadius: BorderRadius.circular(6.0),
+                      border: estFait
+                          ? null
+                          : Border.all(color: Color(0xFF86829D), width: 1.5)),
                   child: Image(
-                    image: AssetImage('assets/images/check_icon.png'),
+                    image: AssetImage('assets/images/fleche.png'),
                   ),
                 ),
               ],
@@ -95,7 +94,7 @@ class ToDoWidget extends StatelessWidget {
             style: TextStyle(
               color: estFait ? Color(0xFF148BCC) : Color(0xFF86829D),
               fontSize: 16.0,
-              fontWeight:  estFait ? FontWeight.bold : FontWeight.w500,
+              fontWeight: estFait ? FontWeight.bold : FontWeight.w500,
             ),
           ),
         ],
@@ -104,12 +103,11 @@ class ToDoWidget extends StatelessWidget {
   }
 }
 
-
 //Enlever le glow
-class NoGlowBehaviour extends ScrollBehavior{
+class NoGlowBehaviour extends ScrollBehavior {
   @override
   Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection){
+      BuildContext context, Widget child, AxisDirection axisDirection) {
     return child;
   }
 }

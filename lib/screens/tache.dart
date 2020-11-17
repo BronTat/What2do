@@ -32,7 +32,7 @@ class _TacheState extends State<Tache> {
                     child: Padding(
                       padding: const EdgeInsets.all(24.0),
                       child: Image(
-                        image: AssetImage('assets/images/back_arrow_icon.png'),
+                        image: AssetImage('assets/images/retour.png'),
                       ),
                     ),
                   ),
@@ -103,7 +103,7 @@ class _TacheState extends State<Tache> {
                         borderRadius: BorderRadius.circular(20)),
                     child: Image(
                       //bouton flottant
-                      image: AssetImage('assets/images/delete_icon.png'),
+                      image: AssetImage('assets/images/supprimer.png'),
                     ),
                   ),
                 ),

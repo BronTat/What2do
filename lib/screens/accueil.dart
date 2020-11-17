@@ -78,7 +78,7 @@ class Accueil_State extends State<Accueil> {
                           borderRadius: BorderRadius.circular(20)),
                       child: Image(
                         //bouton flottant
-                        image: AssetImage('assets/images/add_icon.png'),
+                        image: AssetImage('assets/images/ajouter.png'),
                       ),
                     ),
                   ),
