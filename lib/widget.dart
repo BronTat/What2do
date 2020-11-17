@@ -25,7 +25,7 @@ class TacheWidget extends StatelessWidget {
         children: [
           Text(
             //Si on a un titre en paramètre on l'affiche sinon ...
-            title ?? "Tache vide",
+            title ?? "Liste vide",
             //Surcharge pour redéfinir le style du texte
             style: TextStyle(
               fontSize: 22,

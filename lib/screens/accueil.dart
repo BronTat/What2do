@@ -41,10 +41,12 @@ class Accueil_State extends State<Accueil> {
                           children: [
                             TacheWidget(
                                 //titre passé en paramètre
-                                title: "Débuter avec What2Do :)",
-                                desc:
-                                    "Bonjour, utilisateur ! Bienvenue sur cette application. Sur cet écran, vous pourrez visualiser l'ensemble de vos listes, en ajouter ou en supprimer"),
-                            TacheWidget(),
+                                title: "Semaine 1",
+                                desc: "Planning"),
+                            TacheWidget(
+                              //titre passé en paramètre
+                                title: "Semaine 2",
+                                desc: "Planning"),
                             TacheWidget(),
                             TacheWidget(),
                           ],

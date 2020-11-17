@@ -39,7 +39,7 @@ class _TacheState extends State<Tache> {
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(
-                          hintText: "Entrez le nom de la tâche",
+                          hintText: "Entrez le nom de la ToDoList",
                           border: InputBorder.none
                       ),
                       style: TextStyle(
@@ -58,7 +58,7 @@ class _TacheState extends State<Tache> {
                     ),
                     child: TextField(
                       decoration: InputDecoration(
-                        hintText: "description de la tache",
+                        hintText: "description de la ToDoList",
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: 24.0,
