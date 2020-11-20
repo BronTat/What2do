@@ -38,6 +38,9 @@ class _TacheState extends State<Tache> {
                   ),
                   Expanded(
                     child: TextField(
+                      onSubmitted: (value){
+                    print("fiel value: $value");
+                      },
                       decoration: InputDecoration(
                           hintText: "Entrez le nom de la ToDoList",
                           border: InputBorder.none
@@ -45,7 +48,7 @@ class _TacheState extends State<Tache> {
                       style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFFFFFFF)
+                          color: Color(0xFF86829D)
                       ),
                     ),
                   )
