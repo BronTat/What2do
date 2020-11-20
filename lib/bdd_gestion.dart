@@ -1,8 +1,8 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:todolist_app/modeles/tache.dart';
+import 'package:todolist_app/Tache.dart';
 
-class BDDAide{
+class BDDGestion{
 
 Future<Database> bdd() async{
   return openDatabase(
@@ -13,6 +13,7 @@ Future<Database> bdd() async{
         "CREATE TABLE taches(id INTEGER PRIMARY KEY, titre TEXT, description TEXT)",
       );
     },
+      version: 1,
   );
 }
 

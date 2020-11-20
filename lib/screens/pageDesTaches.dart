@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todolist_app/bdd_gestion.dart';
 import 'package:todolist_app/widget.dart';
 
 class Tache extends StatefulWidget {
@@ -38,8 +39,20 @@ class _TacheState extends State<Tache> {
                   ),
                   Expanded(
                     child: TextField(
-                      onSubmitted: (value){
-                    print("fiel value: $value");
+                      onSubmitted: (value) async{
+                        
+                        BDDGestion bddgestion = BDDGestion();
+                        if(value != ""){
+
+                          Tache nweTache = Tache(
+                            titre: value
+                          );
+
+                         await bddgestion.insertTache(newTache);
+
+                         print("new tache ajouté");
+                        }
+
                       },
                       decoration: InputDecoration(
                           hintText: "Entrez le nom de la ToDoList",
