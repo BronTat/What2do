@@ -64,7 +64,7 @@ class Accueil_State extends State<Accueil> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Tache()),
+                        MaterialPageRoute(builder: (context) => pageDesTaches()),
                       );
                     },
                     child: Container(
