@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todolist_app/screens/pageDesTaches.dart';
 import 'package:todolist_app/widget.dart';
+import 'package:todolist_app/bdd_gestion.dart';
 
 class Accueil extends StatefulWidget {
   @override
@@ -8,6 +9,7 @@ class Accueil extends StatefulWidget {
 }
 
 class Accueil_State extends State<Accueil> {
+  BDDGestion  db = BDDGestion();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,24 +35,19 @@ class Accueil_State extends State<Accueil> {
                     ),
                     Expanded(
                       //signifie qu'on peut naviger dans nos listes
-                      child: ScrollConfiguration(
-                        //enleve le glow lorsqu'on remonte et descend l'app
-                        behavior: NoGlowBehaviour(),
-                        child: ListView(
-                          // ListView pour avoir plusieurs list de toDoList
-                          children: [
-                            TacheWidget(
-                                //titre passé en paramètre
-                                title: "Semaine 1",
-                                desc: "Planning"),
-                            TacheWidget(
-                              //titre passé en paramètre
-                                title: "Semaine 2",
-                                desc: "Planning"),
-                            TacheWidget(),
-                            TacheWidget(),
-                          ],
-                        ),
+                      child: FutureBuilder (
+                        initialData: [],
+                        future: db.getTache(),
+                        builder:(context,snapshot){
+                          return ListView.builder(
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (context,index){
+                                return TacheWidget(
+                                  title: snapshot.data[index].titre,
+                                );
+                              },
+                          );
+                        },
                       ),
                     )
                   ],

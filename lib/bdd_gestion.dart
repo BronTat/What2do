@@ -21,5 +21,11 @@ Future<void> insertTache(Tache tache) async{
   Database db = await bdd();
   await db.insert('taches', tache.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
 }
-
+Future <List<Tache>> getTache() async{
+  Database db = await bdd();
+  List<Map<String, dynamic>> tachesMap = await db.query('taches');
+  return List.generate(tachesMap.length, (index){
+    return Tache(id:tachesMap[index]['id'],titre:tachesMap[index]['title'],description: tachesMap[index]['description'] );
+  });
+}
 }
