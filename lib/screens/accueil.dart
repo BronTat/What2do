@@ -9,7 +9,8 @@ class Accueil extends StatefulWidget {
 }
 
 class Accueil_State extends State<Accueil> {
-  BDDGestion  db = BDDGestion();
+  BDDGestion db = BDDGestion();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,17 +36,20 @@ class Accueil_State extends State<Accueil> {
                     ),
                     Expanded(
                       //signifie qu'on peut naviger dans nos listes
-                      child: FutureBuilder (
+                      child: FutureBuilder(
                         initialData: [],
                         future: db.getTache(),
-                        builder:(context,snapshot){
-                          return ListView.builder(
+                        builder: (context, snapshot) {
+                          return ScrollConfiguration(
+                            behavior: NoGlowBehaviour(),
+                            child: ListView.builder(
                               itemCount: snapshot.data.length,
-                              itemBuilder: (context,index){
+                              itemBuilder: (context, index) {
                                 return TacheWidget(
                                   title: snapshot.data[index].titre,
                                 );
                               },
+                            ),
                           );
                         },
                       ),
@@ -61,15 +65,18 @@ class Accueil_State extends State<Accueil> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => pageDesTaches()),
-                      );
+                        MaterialPageRoute(
+                            builder: (context) => pageDesTaches()),
+                      ).then((value) {
+                        setState(() {});
+                      });
                     },
                     child: Container(
                       width: 60,
                       height: 60,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            //Dégradé
+                              //Dégradé
                               colors: [Color(0xFF148BCC), Color(0xFF86829D)],
                               begin: Alignment(0.0, -1.0),
                               end: Alignment(0.0, 1.0)),
