@@ -45,8 +45,18 @@ class Accueil_State extends State<Accueil> {
                             child: ListView.builder(
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index) {
-                                return TacheWidget(
-                                  title: snapshot.data[index].titre,
+                                return GestureDetector(
+                                  onTap: (){
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => pageDesTaches(
+                                          tache: snapshot.data[index],
+                                        )),
+                                    );
+                                  },
+                                  child: TacheWidget(
+                                    title: snapshot.data[index].titre,
+                                  ),
                                 );
                               },
                             ),
@@ -66,7 +76,7 @@ class Accueil_State extends State<Accueil> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => pageDesTaches()),
+                            builder: (context) => pageDesTaches(tache:null ,)),
                       ).then((value) {
                         setState(() {});
                       });

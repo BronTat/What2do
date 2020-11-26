@@ -5,11 +5,25 @@ import 'package:todolist_app/widget.dart';
 import 'package:todolist_app/Tache.dart';
 
 class pageDesTaches extends StatefulWidget {
+  final Tache tache;
+
+  pageDesTaches({@required this.tache});
+
   @override
   _TacheState createState() => _TacheState();
 }
 
 class _TacheState extends State<pageDesTaches> {
+  String titreTache = "";
+
+  @override
+  void initState() {
+    if (widget.tache != null) {
+      titreTache = widget.tache.titre;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,15 +56,21 @@ class _TacheState extends State<pageDesTaches> {
                         Expanded(
                           child: TextField(
                             onSubmitted: (value) async {
-                              BDDGestion bddgestion = BDDGestion();
+                              //test si le champ n'est pas vide
                               if (value != "") {
-                                Tache newTache = Tache(titre: value);
+                                //  test si la tache est vide
+                                if (widget.tache == null) {
+                                  BDDGestion bddgestion = BDDGestion();
+                                  Tache newTache = Tache(titre: value);
 
-                                await bddgestion.insertTache(newTache);
-
-
+                                  await bddgestion.insertTache(newTache);
+                                } else {
+                                  print("update");
+                                }
                               }
                             },
+                            controller: TextEditingController()
+                              ..text = titreTache,
                             decoration: InputDecoration(
                                 hintText: "Entrez le nom de la ToDoList",
                                 border: InputBorder.none),
@@ -76,22 +96,22 @@ class _TacheState extends State<pageDesTaches> {
                           )),
                     ),
                   ),
-                  ToDoWidget(
-                    texte: "Créer ma première tache",
-                    estFait: true,
-                  ),
-                  ToDoWidget(
-                    texte: "Créer ma deuxieme tache",
-                    estFait: false,
-                  ),
-                  ToDoWidget(
-                    texte: "Créer ma troisime tache",
-                    estFait: true,
-                  ),
-                  ToDoWidget(
-                    texte: "Créer ma quatrieme tache",
-                    estFait: true,
-                  ),
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: "Entrez la tache",
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  )
                 ],
               ),
               Positioned(
