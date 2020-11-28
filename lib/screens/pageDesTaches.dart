@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist_app/bdd_gestion.dart';
 import 'package:todolist_app/widget.dart';
-import 'package:todolist_app/Tache.dart';
+import 'file:///C:/Users/nicolas.jeanmair/AndroidStudioProjects/ToDoListFlutter/lib/modeles/tache.dart';
 
 class pageDesTaches extends StatefulWidget {
   final Tache tache;

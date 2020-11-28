@@ -1,6 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:todolist_app/Tache.dart';
+import 'file:///C:/Users/nicolas.jeanmair/AndroidStudioProjects/ToDoListFlutter/lib/modeles/tache.dart';
 
 class BDDGestion{
 
