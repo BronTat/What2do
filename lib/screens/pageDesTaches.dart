@@ -19,12 +19,14 @@ class pageDesTaches extends StatefulWidget {
 
 class _TacheState extends State<pageDesTaches> {
   BDDGestion bddgestion = BDDGestion();
+  int tacheId = 0;
   String titreTache = "";
 
   @override
   void initState() {
     if (widget.tache != null) {
       titreTache = widget.tache.titre;
+      tacheId = widget.tache.id;
     }
     super.initState();
   }
@@ -103,7 +105,7 @@ class _TacheState extends State<pageDesTaches> {
                   ),
                  FutureBuilder(
                    initialData: [],
-                   future: bddgestion.getTodos(),
+                   future: bddgestion.getTodos(tacheId),
                    builder: (context, snapshot){
                      return Expanded(
                        child: ListView.builder(

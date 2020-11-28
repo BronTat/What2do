@@ -38,9 +38,9 @@ Future <List<Tache>> getTaches() async{
   });
 }
 
-Future <List<Todo>> getTodos() async{
+Future <List<Todo>> getTodos(int tacheId) async{
   Database db = await bdd();
-  List<Map<String, dynamic>> todoMap = await db.query('todo');
+  List<Map<String, dynamic>> todoMap = await db.rawQuery("SELECT * FROM todo WHERE tacheId = $tacheId");
   return List.generate(todoMap.length, (index){
     return Todo(id:todoMap[index]['id'],titre:todoMap[index]['titre'],tacheId: todoMap[index]['tacheId'] ,estFait: todoMap[index]['estFait']);
   });
