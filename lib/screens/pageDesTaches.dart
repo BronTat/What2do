@@ -6,10 +6,7 @@ import 'package:todolist_app/widget.dart';
 import 'file:///C:/Users/nicolas.jeanmair/AndroidStudioProjects/ToDoListFlutter/lib/modeles/tache.dart';
 
 class pageDesTaches extends StatefulWidget {
-
-
   final Tache tache;
-
 
   pageDesTaches({@required this.tache});
 
@@ -22,13 +19,29 @@ class _TacheState extends State<pageDesTaches> {
   int tacheId = 0;
   String titreTache = "";
 
+  FocusNode focusTitre;
+  FocusNode focusDescription;
+  FocusNode focusTodo;
+
   @override
   void initState() {
     if (widget.tache != null) {
       titreTache = widget.tache.titre;
       tacheId = widget.tache.id;
     }
+
+    focusTitre = FocusNode();
+    focusDescription = FocusNode();
+    focusTodo = FocusNode();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    focusTitre.dispose();
+    focusDescription.dispose();
+    focusTodo.dispose();
+    super.dispose();
   }
 
   @override
@@ -62,18 +75,19 @@ class _TacheState extends State<pageDesTaches> {
                         ),
                         Expanded(
                           child: TextField(
+                            focusNode: focusTitre,
                             onSubmitted: (value) async {
                               //test si le champ n'est pas vide
                               if (value != "") {
                                 //  test si la tache est vide
                                 if (widget.tache == null) {
-
                                   Tache newTache = Tache(titre: value);
 
                                   await bddgestion.insertTache(newTache);
                                 } else {
                                   print("update");
                                 }
+                                focusDescription.requestFocus();
                               }
                             },
                             controller: TextEditingController()
@@ -95,6 +109,10 @@ class _TacheState extends State<pageDesTaches> {
                       bottom: 12.0,
                     ),
                     child: TextField(
+                      focusNode: focusDescription,
+                      onSubmitted: (value) {
+                        focusTodo.requestFocus();
+                      },
                       decoration: InputDecoration(
                           hintText: "description de la ToDoList",
                           border: InputBorder.none,
@@ -103,28 +121,27 @@ class _TacheState extends State<pageDesTaches> {
                           )),
                     ),
                   ),
-                 FutureBuilder(
-                   initialData: [],
-                   future: bddgestion.getTodos(tacheId),
-                   builder: (context, snapshot){
-                     return Expanded(
-                       child: ListView.builder(
-                         itemCount: snapshot.data.length,
-                           itemBuilder: (context, index){
-                           return GestureDetector(
-                             onTap: (){
-
-                             },
-                             child: ToDoWidget(
-                               texte :snapshot.data[index].titre,
-                               estFait : snapshot.data[index].estFait == 0 ? false : true,
-                             ),
-                           );
-                           }
-                       ),
-                     );
-                   },
-                 ),
+                  FutureBuilder(
+                    initialData: [],
+                    future: bddgestion.getTodos(tacheId),
+                    builder: (context, snapshot) {
+                      return Expanded(
+                        child: ListView.builder(
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {},
+                                child: ToDoWidget(
+                                  texte: snapshot.data[index].titre,
+                                  estFait: snapshot.data[index].estFait == 0
+                                      ? false
+                                      : true,
+                                ),
+                              );
+                            }),
+                      );
+                    },
+                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 24.0,
@@ -148,6 +165,7 @@ class _TacheState extends State<pageDesTaches> {
                         ),
                         Expanded(
                           child: TextField(
+                            focusNode: focusTodo,
                             onSubmitted: (value) async {
 //test si le champ n'est pas vide
                               if (value != "") {
@@ -161,10 +179,8 @@ class _TacheState extends State<pageDesTaches> {
                                   );
 
                                   await bddgestion.insertTodo(newTodo);
-                                 setState(() {
-
-                                 });
-                                }else{
+                                  setState(() {});
+                                } else {
                                   print("fuck new otdo");
                                 }
                               }
