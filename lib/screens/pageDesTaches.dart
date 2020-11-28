@@ -98,17 +98,39 @@ class _TacheState extends State<pageDesTaches> {
                   ),
                   Column(
                     children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: "Entrez la tache",
-                                border: InputBorder.none,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 24.0,
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 20.0,
+                              height: 20.0,
+                              margin: EdgeInsets.only(
+                                right: 16.0,
+                              ),
+                              decoration: BoxDecoration(
+                                  color:  Colors.transparent,
+                                  borderRadius: BorderRadius.circular(6.0),
+                                  border: Border.all(color: Color(0xFF86829D), width: 1.5)),
+                              child: Image(
+                                image: AssetImage('assets/images/fleche.png'),
                               ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: TextField(
+                                onSubmitted: (value){
+
+                              },
+                                decoration: InputDecoration(
+                                  hintText: "Entrez la tache",
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       )
                     ],
                   )

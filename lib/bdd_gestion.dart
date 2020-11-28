@@ -7,11 +7,12 @@ class BDDGestion{
 Future<Database> bdd() async{
   return openDatabase(
       join(await getDatabasesPath(), 'todolist.db'),
-    onCreate: (db, version) {
+    onCreate: (db, version)async {
       // Run the CREATE TABLE statement on the database.
-      return db.execute(
-        "CREATE TABLE taches(id INTEGER PRIMARY KEY, titre TEXT, description TEXT)",
-      );
+      await db.execute("CREATE TABLE taches(id INTEGER PRIMARY KEY, titre TEXT, description TEXT)");
+      await db.execute("CREATE TABLE todo(id INTEGER PRIMARY KEY, titre TEXT, estFait INTEGER)");
+
+      return db;
     },
       version: 1,
   );
