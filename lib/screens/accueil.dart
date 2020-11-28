@@ -38,7 +38,7 @@ class Accueil_State extends State<Accueil> {
                       //signifie qu'on peut naviger dans nos listes
                       child: FutureBuilder(
                         initialData: [],
-                        future: db.getTache(),
+                        future: db.getTaches(),
                         builder: (context, snapshot) {
                           return ScrollConfiguration(
                             behavior: NoGlowBehaviour(),

@@ -6,7 +6,10 @@ import 'package:todolist_app/widget.dart';
 import 'file:///C:/Users/nicolas.jeanmair/AndroidStudioProjects/ToDoListFlutter/lib/modeles/tache.dart';
 
 class pageDesTaches extends StatefulWidget {
+
+
   final Tache tache;
+
 
   pageDesTaches({@required this.tache});
 
@@ -15,6 +18,7 @@ class pageDesTaches extends StatefulWidget {
 }
 
 class _TacheState extends State<pageDesTaches> {
+  BDDGestion bddgestion = BDDGestion();
   String titreTache = "";
 
   @override
@@ -61,7 +65,7 @@ class _TacheState extends State<pageDesTaches> {
                               if (value != "") {
                                 //  test si la tache est vide
                                 if (widget.tache == null) {
-                                  BDDGestion bddgestion = BDDGestion();
+
                                   Tache newTache = Tache(titre: value);
 
                                   await bddgestion.insertTache(newTache);
@@ -97,60 +101,80 @@ class _TacheState extends State<pageDesTaches> {
                           )),
                     ),
                   ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 24.0,
-                        ),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 20.0,
-                              height: 20.0,
-                              margin: EdgeInsets.only(
-                                right: 16.0,
-                              ),
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(6.0),
-                                  border: Border.all(
-                                      color: Color(0xFF86829D), width: 1.5)),
-                              child: Image(
-                                image: AssetImage('assets/images/fleche.png'),
-                              ),
-                            ),
-                            Expanded(
-                              child: TextField(
-                                onSubmitted: (value) async {
-//test si le champ n'est pas vide
-                                  if (value != "") {
-                                    //  test si la tache est vide
-                                    if (widget.tache != null) {
-                                      BDDGestion bddgestion = BDDGestion();
-                                      Todo newTodo = Todo(
-                                        titre: value,
-                                        estFait: 0,
-                                        tacheId: widget.tache.id,
-                                      );
+                 FutureBuilder(
+                   initialData: [],
+                   future: bddgestion.getTodos(),
+                   builder: (context, snapshot){
+                     return Expanded(
+                       child: ListView.builder(
+                         itemCount: snapshot.data.length,
+                           itemBuilder: (context, index){
+                           return GestureDetector(
+                             onTap: (){
 
-                                      await bddgestion.insertTodo(newTodo);
-                                      print("creation new otdo");
-                                    }else{
-                                      print("fuck new otdo");
-                                    }
-                                  }
-                                },
-                                decoration: InputDecoration(
-                                  hintText: "Entrez la tache",
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ],
+                             },
+                             child: ToDoWidget(
+                               texte :snapshot.data[index].titre,
+                               estFait : snapshot.data[index].estFait == 0 ? false : true,
+                             ),
+                           );
+                           }
+                       ),
+                     );
+                   },
+                 ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24.0,
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 20.0,
+                          height: 20.0,
+                          margin: EdgeInsets.only(
+                            right: 16.0,
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(6.0),
+                              border: Border.all(
+                                  color: Color(0xFF86829D), width: 1.5)),
+                          child: Image(
+                            image: AssetImage('assets/images/fleche.png'),
+                          ),
                         ),
-                      )
-                    ],
+                        Expanded(
+                          child: TextField(
+                            onSubmitted: (value) async {
+//test si le champ n'est pas vide
+                              if (value != "") {
+                                //  test si la tache est vide
+                                if (widget.tache != null) {
+                                  BDDGestion bddgestion = BDDGestion();
+                                  Todo newTodo = Todo(
+                                    titre: value,
+                                    estFait: 0,
+                                    tacheId: widget.tache.id,
+                                  );
+
+                                  await bddgestion.insertTodo(newTodo);
+                                 setState(() {
+
+                                 });
+                                }else{
+                                  print("fuck new otdo");
+                                }
+                              }
+                            },
+                            decoration: InputDecoration(
+                              hintText: "Entrez la tache",
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ),

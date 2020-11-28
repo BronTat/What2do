@@ -30,11 +30,19 @@ Future<void> insertTodo(Todo todo) async{
 }
 
 
-Future <List<Tache>> getTache() async{
+Future <List<Tache>> getTaches() async{
   Database db = await bdd();
   List<Map<String, dynamic>> tachesMap = await db.query('taches');
   return List.generate(tachesMap.length, (index){
     return Tache(id:tachesMap[index]['id'],titre:tachesMap[index]['titre'],description: tachesMap[index]['description'] );
+  });
+}
+
+Future <List<Todo>> getTodos() async{
+  Database db = await bdd();
+  List<Map<String, dynamic>> todoMap = await db.query('todo');
+  return List.generate(todoMap.length, (index){
+    return Todo(id:todoMap[index]['id'],titre:todoMap[index]['titre'],tacheId: todoMap[index]['tacheId'] ,estFait: todoMap[index]['estFait']);
   });
 }
 }
