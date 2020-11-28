@@ -23,9 +23,13 @@ class _TacheState extends State<pageDesTaches> {
   FocusNode focusDescription;
   FocusNode focusTodo;
 
+  //gestion de ce qui doit être visible ou pas
+  bool contenuVisible = false;
+
   @override
   void initState() {
     if (widget.tache != null) {
+      contenuVisible = true;
       titreTache = widget.tache.titre;
       tacheId = widget.tache.id;
     }
@@ -33,6 +37,7 @@ class _TacheState extends State<pageDesTaches> {
     focusTitre = FocusNode();
     focusDescription = FocusNode();
     focusTodo = FocusNode();
+
     super.initState();
   }
 
@@ -104,118 +109,131 @@ class _TacheState extends State<pageDesTaches> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 12.0,
+                  Visibility(
+                    visible: contenuVisible,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        bottom: 12.0,
+                      ),
+                      child: TextField(
+                        focusNode: focusDescription,
+                        onSubmitted: (value) {
+                          focusTodo.requestFocus();
+                        },
+                        decoration: InputDecoration(
+                            hintText: "description de la ToDoList",
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 24.0,
+                            )),
+                      ),
                     ),
-                    child: TextField(
-                      focusNode: focusDescription,
-                      onSubmitted: (value) {
-                        focusTodo.requestFocus();
+                  ),
+                  Visibility(
+                    visible: contenuVisible,
+                    child: FutureBuilder(
+                      initialData: [],
+                      future: bddgestion.getTodos(tacheId),
+                      builder: (context, snapshot) {
+                        return Expanded(
+                          child: ListView.builder(
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {},
+                                  child: ToDoWidget(
+                                    texte: snapshot.data[index].titre,
+                                    estFait: snapshot.data[index].estFait == 0
+                                        ? false
+                                        : true,
+                                  ),
+                                );
+                              }),
+                        );
                       },
-                      decoration: InputDecoration(
-                          hintText: "description de la ToDoList",
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 24.0,
-                          )),
                     ),
                   ),
-                  FutureBuilder(
-                    initialData: [],
-                    future: bddgestion.getTodos(tacheId),
-                    builder: (context, snapshot) {
-                      return Expanded(
-                        child: ListView.builder(
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {},
-                                child: ToDoWidget(
-                                  texte: snapshot.data[index].titre,
-                                  estFait: snapshot.data[index].estFait == 0
-                                      ? false
-                                      : true,
-                                ),
-                              );
-                            }),
-                      );
-                    },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 24.0,
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 20.0,
-                          height: 20.0,
-                          margin: EdgeInsets.only(
-                            right: 16.0,
-                          ),
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(6.0),
-                              border: Border.all(
-                                  color: Color(0xFF86829D), width: 1.5)),
-                          child: Image(
-                            image: AssetImage('assets/images/fleche.png'),
-                          ),
-                        ),
-                        Expanded(
-                          child: TextField(
-                            focusNode: focusTodo,
-                            onSubmitted: (value) async {
-//test si le champ n'est pas vide
-                              if (value != "") {
-                                //  test si la tache est vide
-                                if (widget.tache != null) {
-                                  BDDGestion bddgestion = BDDGestion();
-                                  Todo newTodo = Todo(
-                                    titre: value,
-                                    estFait: 0,
-                                    tacheId: widget.tache.id,
-                                  );
-
-                                  await bddgestion.insertTodo(newTodo);
-                                  setState(() {});
-                                } else {
-                                  print("fuck new otdo");
-                                }
-                              }
-                            },
-                            decoration: InputDecoration(
-                              hintText: "Entrez la tache",
-                              border: InputBorder.none,
+                  Visibility(
+                    visible: contenuVisible,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24.0,
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 20.0,
+                            height: 20.0,
+                            margin: EdgeInsets.only(
+                              right: 16.0,
+                            ),
+                            decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(6.0),
+                                border: Border.all(
+                                    color: Color(0xFF86829D), width: 1.5)),
+                            child: Image(
+                              image: AssetImage('assets/images/fleche.png'),
                             ),
                           ),
-                        ),
-                      ],
+                          Expanded(
+                            child: TextField(
+                              focusNode: focusTodo,
+                              onSubmitted: (value) async {
+//test si le champ n'est pas vide
+                                if (value != "") {
+                                  //  test si la tache est vide
+                                  if (widget.tache != null) {
+                                    BDDGestion bddgestion = BDDGestion();
+                                    Todo newTodo = Todo(
+                                      titre: value,
+                                      estFait: 0,
+                                      tacheId: widget.tache.id,
+                                    );
+
+                                    await bddgestion.insertTodo(newTodo);
+                                    setState(() {});
+                                  } else {
+                                    print("fuck new otdo");
+                                  }
+                                }
+                              },
+                              decoration: InputDecoration(
+                                hintText: "Entrez la tache",
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],
               ),
-              Positioned(
-                bottom: 24,
-                right: 24,
-                child: GestureDetector(
-                  //ajout d'une action sur le bouton (+)
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => pageDesTaches()),
-                    );
-                  },
-                  child: Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: Color(0xFF148BCC),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Image(
-                      //bouton flottant
-                      image: AssetImage('assets/images/supprimer.png'),
+              Visibility(
+                visible: contenuVisible,
+                child: Positioned(
+                  bottom: 24,
+                  right: 24,
+                  child: GestureDetector(
+                    //ajout d'une action sur le bouton (+)
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => pageDesTaches()),
+                      );
+                    },
+                    child: Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          color: Color(0xFF148BCC),
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Image(
+                        //bouton flottant
+                        image: AssetImage('assets/images/supprimer.png'),
+                      ),
                     ),
                   ),
                 ),
