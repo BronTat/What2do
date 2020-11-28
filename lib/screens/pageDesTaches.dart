@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist_app/bdd_gestion.dart';
+import 'package:todolist_app/modeles/todo.dart';
 import 'package:todolist_app/widget.dart';
 import 'file:///C:/Users/nicolas.jeanmair/AndroidStudioProjects/ToDoListFlutter/lib/modeles/tache.dart';
 
@@ -111,18 +112,35 @@ class _TacheState extends State<pageDesTaches> {
                                 right: 16.0,
                               ),
                               decoration: BoxDecoration(
-                                  color:  Colors.transparent,
+                                  color: Colors.transparent,
                                   borderRadius: BorderRadius.circular(6.0),
-                                  border: Border.all(color: Color(0xFF86829D), width: 1.5)),
+                                  border: Border.all(
+                                      color: Color(0xFF86829D), width: 1.5)),
                               child: Image(
                                 image: AssetImage('assets/images/fleche.png'),
                               ),
                             ),
                             Expanded(
                               child: TextField(
-                                onSubmitted: (value){
+                                onSubmitted: (value) async {
+//test si le champ n'est pas vide
+                                  if (value != "") {
+                                    //  test si la tache est vide
+                                    if (widget.tache != null) {
+                                      BDDGestion bddgestion = BDDGestion();
+                                      Todo newTodo = Todo(
+                                        titre: value,
+                                        estFait: 0,
+                                        tacheId: widget.tache.id,
+                                      );
 
-                              },
+                                      await bddgestion.insertTodo(newTodo);
+                                      print("creation new otdo");
+                                    }else{
+                                      print("fuck new otdo");
+                                    }
+                                  }
+                                },
                                 decoration: InputDecoration(
                                   hintText: "Entrez la tache",
                                   border: InputBorder.none,
