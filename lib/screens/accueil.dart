@@ -52,7 +52,11 @@ class Accueil_State extends State<Accueil> {
                                         MaterialPageRoute(builder: (context) => pageDesTaches(
                                           tache: snapshot.data[index],
                                         )),
-                                    );
+                                    ).then((value) {
+                                      setState(() {
+
+                                      });
+                                    });
                                   },
                                   child: TacheWidget(
                                     title: snapshot.data[index].titre,

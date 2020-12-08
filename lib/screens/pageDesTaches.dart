@@ -88,9 +88,14 @@ class _TacheState extends State<pageDesTaches> {
                                 if (widget.tache == null) {
                                   Tache newTache = Tache(titre: value);
 
-                                  await bddgestion.insertTache(newTache);
+                                 tacheId =  await bddgestion.insertTache(newTache);
+                                 setState(() {
+                                   contenuVisible = true;
+                                   titreTache = value;
+                                 });
                                 } else {
-                                  print("update");
+                                  await bddgestion.updateTitreTache(tacheId, value);
+                                  print("update :");
                                 }
                                 focusDescription.requestFocus();
                               }
