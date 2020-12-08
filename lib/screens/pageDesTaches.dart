@@ -225,7 +225,7 @@ class _TacheState extends State<pageDesTaches> {
                                     setState(() {});
                                     focusTodo.requestFocus();
                                   } else {
-                                    print("fuck new otdo");
+                                   // print("fuck new otdo");
                                   }
                                 }
                               },
