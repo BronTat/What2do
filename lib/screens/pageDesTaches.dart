@@ -16,6 +16,7 @@ class pageDesTaches extends StatefulWidget {
 
 class _TacheState extends State<pageDesTaches> {
   BDDGestion bddgestion = BDDGestion();
+
   int tacheId = 0;
   String titreTache = "";
   String descTache = "";
@@ -31,6 +32,7 @@ class _TacheState extends State<pageDesTaches> {
   void initState() {
     if (widget.tache != null) {
       contenuVisible = true;
+
       titreTache = widget.tache.titre;
       descTache = widget.tache.description;
       tacheId = widget.tache.id;
@@ -48,6 +50,7 @@ class _TacheState extends State<pageDesTaches> {
     focusTitre.dispose();
     focusDescription.dispose();
     focusTodo.dispose();
+
     super.dispose();
   }
 
@@ -91,7 +94,7 @@ class _TacheState extends State<pageDesTaches> {
                                   Tache newTache = Tache(titre: value);
 
                                   tacheId =
-                                  await bddgestion.insertTache(newTache);
+                                      await bddgestion.insertTache(newTache);
                                   setState(() {
                                     contenuVisible = true;
                                     titreTache = value;
@@ -107,8 +110,9 @@ class _TacheState extends State<pageDesTaches> {
                             controller: TextEditingController()
                               ..text = titreTache,
                             decoration: InputDecoration(
-                                hintText: "Entrez le nom de la ToDoList",
-                                border: InputBorder.none),
+                              hintText: "Entrez le nom de la ToDoList",
+                              border: InputBorder.none,
+                            ),
                             style: TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
@@ -129,20 +133,21 @@ class _TacheState extends State<pageDesTaches> {
                         onSubmitted: (value) async {
                           if (value != "") {
                             if (tacheId != 0) {
-                              await bddgestion.updateDescriptionTache(tacheId, value);
+                              await bddgestion.updateDescriptionTache(
+                                  tacheId, value);
                               descTache = value;
                             }
                           }
                           focusTodo.requestFocus();
                         },
-                        controller: TextEditingController()
-                          ..text = descTache,
+                        controller: TextEditingController()..text = descTache,
                         decoration: InputDecoration(
-                            hintText: "description de la ToDoList",
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 24.0,
-                            )),
+                          hintText: "description de la ToDoList",
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 24.0,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -154,29 +159,28 @@ class _TacheState extends State<pageDesTaches> {
                       builder: (context, snapshot) {
                         return Expanded(
                           child: ListView.builder(
-                              itemCount: snapshot.data.length,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () async {
-                                    if (snapshot.data[index].estFait == 0) {
-                                      await bddgestion.updateTodoEstFaite(
-                                          snapshot.data[index].id, 1);
-                                    } else {
-                                      await bddgestion.updateTodoEstFaite(
-                                          snapshot.data[index].id, 0);
-                                    }
-                                    setState(() {
-
-                                    });
-                                  },
-                                  child: ToDoWidget(
-                                    texte: snapshot.data[index].titre,
-                                    estFait: snapshot.data[index].estFait == 0
-                                        ? false
-                                        : true,
-                                  ),
-                                );
-                              }),
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () async {
+                                  if (snapshot.data[index].estFait == 0) {
+                                    await bddgestion.updateTodoEstFaite(
+                                        snapshot.data[index].id, 1);
+                                  } else {
+                                    await bddgestion.updateTodoEstFaite(
+                                        snapshot.data[index].id, 0);
+                                  }
+                                  setState(() {});
+                                },
+                                child: ToDoWidget(
+                                  texte: snapshot.data[index].titre,
+                                  estFait: snapshot.data[index].estFait == 0
+                                      ? false
+                                      : true,
+                                ),
+                              );
+                            },
+                          ),
                         );
                       },
                     ),
@@ -207,8 +211,7 @@ class _TacheState extends State<pageDesTaches> {
                           Expanded(
                             child: TextField(
                               focusNode: focusTodo,
-                              controller: TextEditingController()
-                                ..text = "",
+                              controller: TextEditingController()..text = "",
                               onSubmitted: (value) async {
 //test si le champ n'est pas vide
                                 if (value != "") {
@@ -225,7 +228,7 @@ class _TacheState extends State<pageDesTaches> {
                                     setState(() {});
                                     focusTodo.requestFocus();
                                   } else {
-                                   // print("fuck new otdo");
+                                    // print("fuck new otdo");
                                   }
                                 }
                               },
@@ -249,9 +252,9 @@ class _TacheState extends State<pageDesTaches> {
                   child: GestureDetector(
                     //ajout d'une action sur le bouton (+)
                     onTap: () async {
-                      if (tacheId != 0){
-                      await bddgestion.deleteTache(tacheId);
-                      Navigator.pop(context);
+                      if (tacheId != 0) {
+                        await bddgestion.deleteTache(tacheId);
+                        Navigator.pop(context);
                       }
                     },
                     child: Container(
@@ -259,10 +262,12 @@ class _TacheState extends State<pageDesTaches> {
                       height: 60,
                       decoration: BoxDecoration(
                           color: Color(0xFF148BCC),
-                          borderRadius: BorderRadius.circular(20)),
+                          borderRadius: BorderRadius.circular(20)
+                      ),
                       child: Image(
                         //bouton flottant
-                        image: AssetImage('assets/images/supprimer.png'),
+                        image: AssetImage('assets/images/supprimer.png',
+                        ),
                       ),
                     ),
                   ),
