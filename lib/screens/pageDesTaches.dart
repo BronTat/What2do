@@ -18,7 +18,7 @@ class _TacheState extends State<pageDesTaches> {
   BDDGestion bddgestion = BDDGestion();
   int tacheId = 0;
   String titreTache = "";
-  String descTache ="";
+  String descTache = "";
 
   FocusNode focusTitre;
   FocusNode focusDescription;
@@ -91,7 +91,7 @@ class _TacheState extends State<pageDesTaches> {
                                   Tache newTache = Tache(titre: value);
 
                                   tacheId =
-                                      await bddgestion.insertTache(newTache);
+                                  await bddgestion.insertTache(newTache);
                                   setState(() {
                                     contenuVisible = true;
                                     titreTache = value;
@@ -134,7 +134,8 @@ class _TacheState extends State<pageDesTaches> {
                           }
                           focusTodo.requestFocus();
                         },
-                        controller: TextEditingController()..text=descTache,
+                        controller: TextEditingController()
+                          ..text = descTache,
                         decoration: InputDecoration(
                             hintText: "description de la ToDoList",
                             border: InputBorder.none,
@@ -155,12 +156,13 @@ class _TacheState extends State<pageDesTaches> {
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: () async{
-                                    if(snapshot.data[index].estFait == 0){
-                                      
-                                   await bddgestion.updateTodoEstFaite(snapshot.data[index].id, 1);
-                                    }else{
-                                      await bddgestion.updateTodoEstFaite(snapshot.data[index].id, 0);
+                                  onTap: () async {
+                                    if (snapshot.data[index].estFait == 0) {
+                                      await bddgestion.updateTodoEstFaite(
+                                          snapshot.data[index].id, 1);
+                                    } else {
+                                      await bddgestion.updateTodoEstFaite(
+                                          snapshot.data[index].id, 0);
                                     }
                                     setState(() {
 
@@ -204,7 +206,8 @@ class _TacheState extends State<pageDesTaches> {
                           Expanded(
                             child: TextField(
                               focusNode: focusTodo,
-                              controller: TextEditingController()..text = "",
+                              controller: TextEditingController()
+                                ..text = "",
                               onSubmitted: (value) async {
 //test si le champ n'est pas vide
                                 if (value != "") {
@@ -244,12 +247,11 @@ class _TacheState extends State<pageDesTaches> {
                   right: 24,
                   child: GestureDetector(
                     //ajout d'une action sur le bouton (+)
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => pageDesTaches()),
-                      );
+                    onTap: () async {
+                      if (tacheId != 0){
+                      await bddgestion.deleteTache(tacheId);
+                      Navigator.pop(context);
+                      }
                     },
                     child: Container(
                       width: 60,
