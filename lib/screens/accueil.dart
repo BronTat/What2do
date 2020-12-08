@@ -46,20 +46,23 @@ class Accueil_State extends State<Accueil> {
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: (){
+                                  onTap: () {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => pageDesTaches(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => pageDesTaches(
                                           tache: snapshot.data[index],
-                                        )),
+                                        ),
+                                      ),
                                     ).then((value) {
-                                      setState(() {
-
-                                      });
+                                      setState(
+                                        () {},
+                                      );
                                     });
                                   },
                                   child: TacheWidget(
-                                    title: snapshot.data[index].titre,
+                                    titre: snapshot.data[index].titre,
+                                    desc: snapshot.data[index].description,
                                   ),
                                 );
                               },
@@ -80,7 +83,9 @@ class Accueil_State extends State<Accueil> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => pageDesTaches(tache:null ,)),
+                            builder: (context) => pageDesTaches(
+                                  tache: null,
+                                )),
                       ).then((value) {
                         setState(() {});
                       });

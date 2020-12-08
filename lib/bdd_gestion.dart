@@ -38,6 +38,11 @@ class BDDGestion {
     await db.rawUpdate("UPDATE taches SET titre = '$titre' WHERE id = '$id'");
   }
 
+  Future<void> updateDescriptionTache(int id, String description) async {
+    Database db = await bdd();
+    await db.rawUpdate("UPDATE taches SET description = '$description' WHERE id = '$id'");
+  }
+
   Future<void> insertTodo(Todo todo) async {
     Database db = await bdd();
     await db.insert('todo', todo.toMap(),

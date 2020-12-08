@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class TacheWidget extends StatelessWidget {
-  final String title;
+  final String titre;
   final String desc;
 
   //C'est un constructeur
-  TacheWidget({this.title, this.desc});
+  TacheWidget({this.titre, this.desc});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class TacheWidget extends StatelessWidget {
         children: [
           Text(
             //Si on a un titre en paramètre on l'affiche sinon ...
-            title ?? "Liste vide",
+            titre ?? "Liste vide",
             //Surcharge pour redéfinir le style du texte
             style: TextStyle(
               fontSize: 22,

@@ -88,13 +88,15 @@ class _TacheState extends State<pageDesTaches> {
                                 if (widget.tache == null) {
                                   Tache newTache = Tache(titre: value);
 
-                                 tacheId =  await bddgestion.insertTache(newTache);
-                                 setState(() {
-                                   contenuVisible = true;
-                                   titreTache = value;
-                                 });
+                                  tacheId =
+                                      await bddgestion.insertTache(newTache);
+                                  setState(() {
+                                    contenuVisible = true;
+                                    titreTache = value;
+                                  });
                                 } else {
-                                  await bddgestion.updateTitreTache(tacheId, value);
+                                  await bddgestion.updateTitreTache(
+                                      tacheId, value);
                                   print("update :");
                                 }
                                 focusDescription.requestFocus();
@@ -123,6 +125,11 @@ class _TacheState extends State<pageDesTaches> {
                       child: TextField(
                         focusNode: focusDescription,
                         onSubmitted: (value) {
+                          if (value != "") {
+                            if (tacheId != 0) {
+                              bddgestion.updateDescriptionTache(tacheId, value);
+                            }
+                          }
                           focusTodo.requestFocus();
                         },
                         decoration: InputDecoration(
