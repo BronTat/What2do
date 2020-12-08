@@ -81,5 +81,6 @@ class BDDGestion {
   Future<void> deleteTache(int id) async {
     Database db = await bdd();
     await db.rawDelete("DELETE FROM taches WHERE id = '$id'");
+    await db.rawDelete("DELETE FROM todo WHERE tacheId = '$id'");
   }
 }
