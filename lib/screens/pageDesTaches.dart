@@ -155,7 +155,17 @@ class _TacheState extends State<pageDesTaches> {
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: () {},
+                                  onTap: () async{
+                                    if(snapshot.data[index].estFait == 0){
+                                      
+                                   await bddgestion.updateTodoEstFaite(snapshot.data[index].id, 1);
+                                    }else{
+                                      await bddgestion.updateTodoEstFaite(snapshot.data[index].id, 0);
+                                    }
+                                    setState(() {
+
+                                    });
+                                  },
                                   child: ToDoWidget(
                                     texte: snapshot.data[index].titre,
                                     estFait: snapshot.data[index].estFait == 0
@@ -194,6 +204,7 @@ class _TacheState extends State<pageDesTaches> {
                           Expanded(
                             child: TextField(
                               focusNode: focusTodo,
+                              controller: TextEditingController()..text = "",
                               onSubmitted: (value) async {
 //test si le champ n'est pas vide
                                 if (value != "") {
@@ -208,6 +219,7 @@ class _TacheState extends State<pageDesTaches> {
 
                                     await bddgestion.insertTodo(newTodo);
                                     setState(() {});
+                                    focusTodo.requestFocus();
                                   } else {
                                     print("fuck new otdo");
                                   }

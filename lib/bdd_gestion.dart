@@ -72,4 +72,9 @@ class BDDGestion {
           estFait: todoMap[index]['estFait']);
     });
   }
+
+  Future<void> updateTodoEstFaite(int id, int estFait) async {
+    Database db = await bdd();
+    await db.rawUpdate("UPDATE todo SET estFait = '$estFait' WHERE id = '$id'");
+  }
 }
