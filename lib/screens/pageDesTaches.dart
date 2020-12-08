@@ -126,10 +126,11 @@ class _TacheState extends State<pageDesTaches> {
                       ),
                       child: TextField(
                         focusNode: focusDescription,
-                        onSubmitted: (value) {
+                        onSubmitted: (value) async {
                           if (value != "") {
                             if (tacheId != 0) {
-                              bddgestion.updateDescriptionTache(tacheId, value);
+                              await bddgestion.updateDescriptionTache(tacheId, value);
+                              descTache = value;
                             }
                           }
                           focusTodo.requestFocus();
@@ -212,12 +213,12 @@ class _TacheState extends State<pageDesTaches> {
 //test si le champ n'est pas vide
                                 if (value != "") {
                                   //  test si la tache est vide
-                                  if (widget.tache != null) {
+                                  if (tacheId != 0) {
                                     BDDGestion bddgestion = BDDGestion();
                                     Todo newTodo = Todo(
                                       titre: value,
                                       estFait: 0,
-                                      tacheId: widget.tache.id,
+                                      tacheId: tacheId,
                                     );
 
                                     await bddgestion.insertTodo(newTodo);
