@@ -18,6 +18,7 @@ class _TacheState extends State<pageDesTaches> {
   BDDGestion bddgestion = BDDGestion();
   int tacheId = 0;
   String titreTache = "";
+  String descTache ="";
 
   FocusNode focusTitre;
   FocusNode focusDescription;
@@ -31,6 +32,7 @@ class _TacheState extends State<pageDesTaches> {
     if (widget.tache != null) {
       contenuVisible = true;
       titreTache = widget.tache.titre;
+      descTache = widget.tache.description;
       tacheId = widget.tache.id;
     }
 
@@ -132,6 +134,7 @@ class _TacheState extends State<pageDesTaches> {
                           }
                           focusTodo.requestFocus();
                         },
+                        controller: TextEditingController()..text=descTache,
                         decoration: InputDecoration(
                             hintText: "description de la ToDoList",
                             border: InputBorder.none,

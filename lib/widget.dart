@@ -89,12 +89,14 @@ class ToDoWidget extends StatelessWidget {
               ],
             ),
           ),
-          Text(
-            texte ?? "ToDo vide",
-            style: TextStyle(
-              color: estFait ? Color(0xFF148BCC) : Color(0xFF86829D),
-              fontSize: 16.0,
-              fontWeight: estFait ? FontWeight.bold : FontWeight.w500,
+          Flexible(
+            child: Text(
+              texte ?? "ToDo vide",
+              style: TextStyle(
+                color: estFait ? Color(0xFF148BCC) : Color(0xFF86829D),
+                fontSize: 16.0,
+                fontWeight: estFait ? FontWeight.bold : FontWeight.w500,
+              ),
             ),
           ),
         ],
