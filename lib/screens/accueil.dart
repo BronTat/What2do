@@ -63,6 +63,7 @@ class Accueil_State extends State<Accueil> {
                                   child: TacheWidget(
                                     titre: snapshot.data[index].titre,
                                     desc: snapshot.data[index].description,
+                                    couleurFond: snapshot.data[index].couleurFond,
                                   ),
                                 );
                               },

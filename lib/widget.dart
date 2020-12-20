@@ -7,9 +7,10 @@ import 'bdd_gestion.dart';
 class TacheWidget extends StatelessWidget {
   final String titre;
   final String desc;
+  final int couleurFond;
 
   //C'est un constructeur
-  TacheWidget({this.titre, this.desc});
+  TacheWidget({this.titre, this.desc, this.couleurFond});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class TacheWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
         //Ajoute une couleur de background
-        color: Color(0xFFFFFFFF),
+        color: Color(couleurFond),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,12 +66,14 @@ class ToDoWidget extends StatelessWidget {
   String initialValue;
   DateTime startDate;
   DateTime endDate;
+  final int couleurFond;
 
   ToDoWidget({
     this.texte,
     this.dateEcheance,
     @required this.estFait,
     this.index,
+    this.couleurFond,
   }) {
     if (dateEcheance == null) {
       initialValue = "";

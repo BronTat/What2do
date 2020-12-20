@@ -2,7 +2,7 @@ class Tache {
   final int id;
   final String titre;
   final String description;
-  final int couleurFond;
+   int couleurFond = 0;
 
   Tache({this.id, this.titre, this.description, this.couleurFond});
 

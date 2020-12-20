@@ -1,9 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist_app/bdd_gestion.dart';
+import 'package:todolist_app/modeles/tache.dart';
 import 'package:todolist_app/modeles/todo.dart';
 import 'package:todolist_app/widget.dart';
-import 'file:///C:/Users/nicolas.jeanmair/AndroidStudioProjects/ToDoListFlutter/lib/modeles/tache.dart';
 
 class pageDesTaches extends StatefulWidget {
   final Tache tache;
@@ -20,6 +22,8 @@ class _TacheState extends State<pageDesTaches> {
   int tacheId = 0;
   String titreTache = "";
   String descTache = "";
+  int couleurFond =
+      Colors.primaries[new Random().nextInt(Colors.primaries.length)].value;
 
   FocusNode focusTitre;
   FocusNode focusDescription;
@@ -36,6 +40,7 @@ class _TacheState extends State<pageDesTaches> {
       titreTache = widget.tache.titre;
       descTache = widget.tache.description;
       tacheId = widget.tache.id;
+      couleurFond = widget.tache.couleurFond;
     }
 
     focusTitre = FocusNode();
@@ -59,6 +64,7 @@ class _TacheState extends State<pageDesTaches> {
     return Scaffold(
       body: SafeArea(
         child: Container(
+          color: Color(couleurFond),
           child: Stack(
             children: [
               Column(
@@ -91,7 +97,7 @@ class _TacheState extends State<pageDesTaches> {
                               if (value != "") {
                                 //  test si la tache est vide
                                 if (widget.tache == null) {
-                                  Tache newTache = Tache(titre: value);
+                                  Tache newTache = Tache(titre: value, couleurFond: couleurFond);
 
                                   tacheId =
                                       await bddgestion.insertTache(newTache);
@@ -177,7 +183,9 @@ class _TacheState extends State<pageDesTaches> {
                                   estFait: snapshot.data[index].estFait == 0
                                       ? false
                                       : true,
-                                  index: snapshot.data[index].id != null ? snapshot.data[index].id : snapshot.data.length,
+                                  index: snapshot.data[index].id != null
+                                      ? snapshot.data[index].id
+                                      : snapshot.data.length,
                                   dateEcheance: snapshot.data[index].echeance,
                                 ),
                               );
@@ -264,11 +272,11 @@ class _TacheState extends State<pageDesTaches> {
                       height: 60,
                       decoration: BoxDecoration(
                           color: Color(0xFF148BCC),
-                          borderRadius: BorderRadius.circular(20)
-                      ),
+                          borderRadius: BorderRadius.circular(20)),
                       child: Image(
                         //bouton flottant
-                        image: AssetImage('assets/images/supprimer.png',
+                        image: AssetImage(
+                          'assets/images/supprimer.png',
                         ),
                       ),
                     ),

@@ -1,6 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'file:///C:/Users/nicolas.jeanmair/AndroidStudioProjects/ToDoListFlutter/lib/modeles/tache.dart';
+import 'modeles/tache.dart';
 import 'modeles/todo.dart';
 
 class BDDGestion {
@@ -32,7 +32,7 @@ class BDDGestion {
 
     return tacheId;
   }
-  
+
   Future<void> updateTitreTache(int id, String titre) async {
     Database db = await bdd();
     await db.rawUpdate("UPDATE taches SET titre = '$titre' WHERE id = '$id'");
@@ -40,7 +40,8 @@ class BDDGestion {
 
   Future<void> updateDescriptionTache(int id, String description) async {
     Database db = await bdd();
-    await db.rawUpdate("UPDATE taches SET description = '$description' WHERE id = '$id'");
+    await db.rawUpdate(
+        "UPDATE taches SET description = '$description' WHERE id = '$id'");
   }
 
   Future<void> insertTodo(Todo todo) async {
@@ -56,7 +57,8 @@ class BDDGestion {
       return Tache(
           id: tachesMap[index]['id'],
           titre: tachesMap[index]['titre'],
-          description: tachesMap[index]['description']);
+          description: tachesMap[index]['description'],
+          couleurFond: tachesMap[index]['couleurFond']);
     });
   }
 
@@ -81,11 +83,14 @@ class BDDGestion {
 
   Future<void> updateTodoDateEcheance(int id, String echeance) async {
     Database db = await bdd();
-    await db.rawUpdate("UPDATE todo SET echeance = '$echeance' WHERE id = '$id'");
+    await db
+        .rawUpdate("UPDATE todo SET echeance = '$echeance' WHERE id = '$id'");
   }
+
   Future<void> updateTachesCouleurFond(int id, int couleurFond) async {
     Database db = await bdd();
-    await db.rawUpdate("UPDATE taches SET couleurFond = '$couleurFond' WHERE id = '$id'");
+    await db.rawUpdate(
+        "UPDATE taches SET couleurFond = '$couleurFond' WHERE id = '$id'");
   }
 
   Future<void> deleteTache(int id) async {
