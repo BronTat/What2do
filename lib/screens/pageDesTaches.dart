@@ -122,7 +122,9 @@ class _TacheState extends State<pageDesTaches> {
                             style: TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF86829D)),
+                                color: Color(couleurFond).computeLuminance() > 0.5
+                                    ? Colors.black
+                                    : Colors.white),
                           ),
                         )
                       ],
@@ -147,6 +149,7 @@ class _TacheState extends State<pageDesTaches> {
                           focusTodo.requestFocus();
                         },
                         controller: TextEditingController()..text = descTache,
+
                         decoration: InputDecoration(
                           hintText: "description de la ToDoList",
                           border: InputBorder.none,
@@ -154,6 +157,10 @@ class _TacheState extends State<pageDesTaches> {
                             horizontal: 24.0,
                           ),
                         ),
+                        style: TextStyle(
+                            color: Color(couleurFond).computeLuminance() > 0.5
+                                ? Colors.black
+                                : Colors.white),
                       ),
                     ),
                   ),
@@ -246,6 +253,10 @@ class _TacheState extends State<pageDesTaches> {
                                 hintText: "Entrez la tache",
                                 border: InputBorder.none,
                               ),
+                              style: TextStyle(
+                                  color: Color(couleurFond).computeLuminance() > 0.5
+                                      ? Colors.black
+                                      : Colors.white),
                             ),
                           ),
                         ],
