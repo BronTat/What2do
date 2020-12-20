@@ -79,6 +79,11 @@ class BDDGestion {
     await db.rawUpdate("UPDATE todo SET estFait = '$estFait' WHERE id = '$id'");
   }
 
+  Future<void> updateTodoDateEcheance(int id, String echeance) async {
+    Database db = await bdd();
+    await db.rawUpdate("UPDATE todo SET echeance = '$echeance' WHERE id = '$id'");
+  }
+
   Future<void> deleteTache(int id) async {
     Database db = await bdd();
     await db.rawDelete("DELETE FROM taches WHERE id = '$id'");
