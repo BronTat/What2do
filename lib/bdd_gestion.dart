@@ -12,7 +12,7 @@ class BDDGestion {
         await db.execute(
             "CREATE TABLE taches(id INTEGER PRIMARY KEY, titre TEXT, description TEXT)");
         await db.execute(
-            "CREATE TABLE todo(id INTEGER PRIMARY KEY, tacheId INTEGER, titre TEXT, estFait INTEGER)");
+            "CREATE TABLE todo(id INTEGER PRIMARY KEY, tacheId INTEGER, titre TEXT, estFait INTEGER, echeance TEXT)");
 
         return db;
       },
@@ -69,7 +69,8 @@ class BDDGestion {
           id: todoMap[index]['id'],
           titre: todoMap[index]['titre'],
           tacheId: todoMap[index]['tacheId'],
-          estFait: todoMap[index]['estFait']);
+          estFait: todoMap[index]['estFait']),
+      echeance: todoMap[index]['echeance']);
     });
   }
 
