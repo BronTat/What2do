@@ -35,7 +35,9 @@ class TacheWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF171717),
+              color: Color(couleurFond).computeLuminance() > 0.5
+                  ? Colors.black
+                  : Colors.white
             ),
           ),
           Padding(
@@ -46,7 +48,9 @@ class TacheWidget extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w300,
-                color: Color(0xFF171717),
+                color: Color(couleurFond).computeLuminance() > 0.5
+                    ? Colors.black
+                    : Colors.white,
                 height: 1.5,
               ),
             ),
