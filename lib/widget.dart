@@ -1,4 +1,8 @@
+import 'package:date_time_picker/date_time_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'bdd_gestion.dart';
 
 class TacheWidget extends StatelessWidget {
   final String titre;
@@ -55,8 +59,30 @@ class TacheWidget extends StatelessWidget {
 class ToDoWidget extends StatelessWidget {
   final String texte;
   final bool estFait;
+  final int index;
+  final String dateEcheance;
+  final BDDGestion bdd = new BDDGestion();
+  String initialValue;
+  DateTime startDate;
+  DateTime endDate;
 
-  ToDoWidget({this.texte, @required this.estFait});
+  ToDoWidget({
+    this.texte,
+    this.dateEcheance,
+    @required this.estFait,
+    this.index,
+  }) {
+    if (dateEcheance == null) {
+      initialValue = "";
+    } else {
+      initialValue = this.dateEcheance;
+    }
+    DateTime tmp = DateTime.now();
+    startDate = DateTime(tmp.year - 5);
+    endDate = DateTime(tmp.year + 5);
+  }
+
+  // ToDoWidget({this.texte, @required this.estFait});
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +92,7 @@ class ToDoWidget extends StatelessWidget {
         vertical: 8.0,
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Positioned(
             child: Column(
@@ -97,6 +124,17 @@ class ToDoWidget extends StatelessWidget {
                 fontSize: 16.0,
                 fontWeight: estFait ? FontWeight.bold : FontWeight.w500,
               ),
+            ),
+          ),
+          Flexible(
+            child: DateTimePicker(
+              style: TextStyle(decoration: TextDecoration.none),
+              type: DateTimePickerType.dateTime,
+              initialValue: initialValue,
+              firstDate: startDate,
+              lastDate: endDate,
+              onChanged: (val) => bdd.updateTodoDateEcheance(index, val),
+              onSaved: (val) => print(val),
             ),
           ),
         ],

@@ -177,6 +177,8 @@ class _TacheState extends State<pageDesTaches> {
                                   estFait: snapshot.data[index].estFait == 0
                                       ? false
                                       : true,
+                                  index: snapshot.data[index].id != null ? snapshot.data[index].id : snapshot.data.length,
+                                  dateEcheance: snapshot.data[index].echeance,
                                 ),
                               );
                             },
