@@ -10,7 +10,7 @@ class BDDGestion {
       onCreate: (db, version) async {
         // Run the CREATE TABLE statement on the database.
         await db.execute(
-            "CREATE TABLE taches(id INTEGER PRIMARY KEY, titre TEXT, description TEXT)");
+            "CREATE TABLE taches(id INTEGER PRIMARY KEY, titre TEXT, description TEXT, couleurFond INTEGER)");
         await db.execute(
             "CREATE TABLE todo(id INTEGER PRIMARY KEY, tacheId INTEGER, titre TEXT, estFait INTEGER, echeance TEXT)");
 
@@ -82,6 +82,10 @@ class BDDGestion {
   Future<void> updateTodoDateEcheance(int id, String echeance) async {
     Database db = await bdd();
     await db.rawUpdate("UPDATE todo SET echeance = '$echeance' WHERE id = '$id'");
+  }
+  Future<void> updateTachesCouleurFond(int id, int couleurFond) async {
+    Database db = await bdd();
+    await db.rawUpdate("UPDATE taches SET couleurFond = '$couleurFond' WHERE id = '$id'");
   }
 
   Future<void> deleteTache(int id) async {
