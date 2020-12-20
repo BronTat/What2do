@@ -69,8 +69,8 @@ class BDDGestion {
           id: todoMap[index]['id'],
           titre: todoMap[index]['titre'],
           tacheId: todoMap[index]['tacheId'],
-          estFait: todoMap[index]['estFait']),
-      echeance: todoMap[index]['echeance']);
+          estFait: todoMap[index]['estFait'],
+          echeance: todoMap[index]['echeance']);
     });
   }
 
