@@ -45,12 +45,15 @@ class Accueil_State extends State<Accueil> {
   void _createAllNotificationsFromTodos() async {
     //Init NotificationsDetails for android Platform
     const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        "0",
-        "taches",
-        "",
+        "0", //id demandé
+        "taches", // nom du chanel de notif
+        "", //description du channel
         importance: Importance.defaultImportance,
         priority: Priority.defaultPriority,
-        showWhen: true);
+        showWhen: true); // quel moment a été déclenché la notif
+
+    //contient les settings pour android
+    //mcOs et iOS sont pas pris en compte car il faudrait tout gérer différement
     const NotificationDetails platformChannelsSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
 
     List<Tache> taches = await db.getTaches();
