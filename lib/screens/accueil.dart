@@ -80,9 +80,6 @@ class Accueil_State extends State<Accueil> {
         }
       }
     }
-
-    //List<PendingNotificationRequest> pendingNotifications = await localNotifications.pendingNotificationRequests();
-    //pendingNotifications.forEach((element) { print(element.id.toString() + " / " + element.payload); });
   }
 
   @override
