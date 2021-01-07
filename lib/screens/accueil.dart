@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:todolist_app/modeles/tache.dart';
+import 'package:todolist_app/modeles/todo.dart';
 import 'package:todolist_app/screens/pageDesTaches.dart';
 import 'package:todolist_app/widget.dart';
 import 'package:todolist_app/bdd_gestion.dart';
+import 'package:timezone/timezone.dart' as tz;
+
+import '../main.dart';
 
 class Accueil extends StatefulWidget {
   @override
@@ -10,6 +16,71 @@ class Accueil extends StatefulWidget {
 
 class Accueil_State extends State<Accueil> {
   BDDGestion db = BDDGestion();
+
+  @override
+  void initState() {
+    super.initState();
+    //quand on recup le state, on lance cette méthode qui contient le stream de ce qu'on recup avant.
+    _configureSelectNotificationSubject();
+    _createAllNotificationsFromTodos();
+  }
+
+  //afficher la fenetre de la liste de taches ou se trouvait le todo contenu dans la notif
+  void _configureSelectNotificationSubject() {
+    //lecture du stream
+    selectNotificationSubject.stream.listen((String payload) async {
+      List<Tache> taches = await db.getTaches();
+      for (int i = 0; i < taches.length; i++) {
+        if (int.parse(payload) == taches[i].id) {
+          Tache t = taches[i];
+          await Navigator.push(context, MaterialPageRoute<void>(
+              builder: (context) => pageDesTaches(tache: t,)));
+        }
+      }
+    });
+  }
+
+  //creer toutes les notifs.. les notifs restent si l'app est en tache de fond...
+  //ce n'est pas des notifs push.. quand on ferme l'appli, elles disparaissent.
+  void _createAllNotificationsFromTodos() async {
+    //Init NotificationsDetails for android Platform
+    const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        "0",
+        "taches",
+        "",
+        importance: Importance.defaultImportance,
+        priority: Priority.defaultPriority,
+        showWhen: true);
+    const NotificationDetails platformChannelsSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    List<Tache> taches = await db.getTaches();
+    for (int i = 0; i < taches.length; i++) {
+      List<Todo> todosTache = await db.getTodos(taches[i].id);
+      for (int j = 0; j < todosTache.length; j++) {
+        //print(todosTache[j].echeance);
+        if (todosTache[j].echeance != null) {
+          try {
+            await localNotifications.zonedSchedule(
+                todosTache[j].id,
+                "La tâche " + todosTache[j].titre + " arrive à écheance",
+                "Dans 10 minutes, cette tâche aura passer son écheance",
+                tz.TZDateTime.parse(tz.local, todosTache[j].echeance).subtract(
+                    Duration(minutes: 10)),
+                platformChannelsSpecifics,
+                uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation
+                    .absoluteTime,
+                androidAllowWhileIdle: true,
+                payload: taches[i].id.toString());
+          } catch (ex) {
+            //debugPrint("ERROR");
+          }
+        }
+      }
+    }
+
+    //List<PendingNotificationRequest> pendingNotifications = await localNotifications.pendingNotificationRequests();
+    //pendingNotifications.forEach((element) { print(element.id.toString() + " / " + element.payload); });
+  }
 
   @override
   Widget build(BuildContext context) {
