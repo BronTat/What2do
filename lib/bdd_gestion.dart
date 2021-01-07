@@ -88,6 +88,7 @@ class BDDGestion {
     Database db = await bdd();
     await db
         .rawUpdate("UPDATE todo SET echeance = '$echeance' WHERE id = '$id'");
+    _createAllNotificationsFromTodos();
   }
 
   Future<void> updateTachesCouleurFond(int id, int couleurFond) async {
