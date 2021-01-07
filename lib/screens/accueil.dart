@@ -63,16 +63,16 @@ class Accueil_State extends State<Accueil> {
         //print(todosTache[j].echeance);
         if (todosTache[j].echeance != null) {
           try {
-            await localNotifications.zonedSchedule(
+            await localNotifications.zonedSchedule( //creer la notif par rapport a une heure donnée
                 todosTache[j].id,
                 "La tâche " + todosTache[j].titre + " arrive à écheance",
-                "Dans 10 minutes, cette tâche aura passer son écheance",
+                "Dans 10 minutes, cette tâche aura passé son écheance",
                 tz.TZDateTime.parse(tz.local, todosTache[j].echeance).subtract(
                     Duration(minutes: 10)),
                 platformChannelsSpecifics,
                 uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation
                     .absoluteTime,
-                androidAllowWhileIdle: true,
+                androidAllowWhileIdle: true, //meme si le telephone fait rien, la notif peut se lancer
                 payload: taches[i].id.toString());
           } catch (ex) {
             //debugPrint("ERROR");
