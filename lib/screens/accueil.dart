@@ -73,7 +73,7 @@ class Accueil_State extends State<Accueil> {
                 uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation
                     .absoluteTime,
                 androidAllowWhileIdle: true, //meme si le telephone fait rien, la notif peut se lancer
-                payload: taches[i].id.toString());
+                payload: taches[i].id.toString());// info pour le selectNotification dans main.dart
           } catch (ex) {
             //debugPrint("ERROR");
           }
