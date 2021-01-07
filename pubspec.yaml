@@ -14,7 +14,11 @@ dependencies:
 
   cupertino_icons: ^1.0.0
   google_fonts: ^1.1.1
-  date_time_picker: ^1.1.0
+  date_time_picker: ^1.1.0 #date
+
+  flutter_local_notifications: ^3.0.2 #notif
+  timezone: ^0.5.9
+  rxdart: ^0.25.0 #
 
   sqflite:
   path:
