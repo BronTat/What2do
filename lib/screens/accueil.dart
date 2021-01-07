@@ -22,7 +22,6 @@ class Accueil_State extends State<Accueil> {
     super.initState();
     //quand on recup le state, on lance cette méthode qui contient le stream de ce qu'on recup avant.
     _configureSelectNotificationSubject();
-    _createAllNotificationsFromTodos();
   }
 
   //afficher la fenetre de la liste de taches ou se trouvait le todo contenu dans la notif
